@@ -40,7 +40,9 @@
 
         flake = {
           nixosModules = import ./nix/modules;
-          nixosConfigurations = import ./nix/configurations;
+          nixosConfigurations = import ./nix/configurations {
+            inherit self inputs;
+          };
         };
 
         perSystem =
