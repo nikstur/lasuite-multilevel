@@ -9,6 +9,10 @@
     machine =
       { ... }:
       {
+        multilevel = {
+          image.enable = true;
+          host.enable = true;
+        };
       };
   };
 

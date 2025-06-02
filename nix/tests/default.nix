@@ -7,7 +7,12 @@ let
       imports = [ module ];
       globalTimeout = 5 * 60;
       extraBaseModules = {
-        imports = builtins.attrValues extraBaseModules;
+        # imports = builtins.attrValues extraBaseModules;
+        imports = [
+          ../modules/host.nix
+          ../modules/guest.nix
+          ../modules/image.nix
+        ];
       };
     };
 in

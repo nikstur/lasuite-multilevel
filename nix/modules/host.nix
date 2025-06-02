@@ -1,7 +1,18 @@
 {
+  lib,
+  config,
   ...
 }:
 
+let
+  cfg = config.multilevel.host;
+in
 {
-  imports = [ ./image.nix ];
+  options.multilevel.host = {
+    enable = lib.mkEnableOption "host";
+  };
+
+  config = lib.mkIf cfg.enable {
+
+  };
 }

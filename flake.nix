@@ -55,7 +55,7 @@
             checks = (
               import ./nix/tests {
                 inherit pkgs;
-                extraBaseModules = self.nixosModules;
+                extraBaseModules = import ./nix/modules;
               }
             );
 
