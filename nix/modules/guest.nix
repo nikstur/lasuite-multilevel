@@ -17,6 +17,8 @@ in
       users.cage = {
         isSystemUser = true;
         group = "cage";
+        home = "/var/lib/kiosk";
+        createHome = true;
       };
       groups.cage = { };
     };
