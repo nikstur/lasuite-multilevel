@@ -23,10 +23,29 @@ in
       groups.cage = { };
     };
 
+    programs.firefox = {
+      enable = true;
+      policies = {
+        DisableFirefoxStudies = true;
+        DisableTelemetry = true;
+        DisableSetDesktopBackground = true;
+        DisableDeveloperTools = true;
+        BlockAboutConfig = true;
+        Homepage = {
+          URL = "https://github.com/nikstur/lasuite-multilevel";
+          Locked = true;
+        };
+      };
+    };
+
     services.cage = {
       enable = true;
       user = "cage";
-      program = "${pkgs.firefox}/bin/firefox";
+      program = ''
+        ${config.programs.firefox.package}/bin/firefox \
+          --kiosk \
+          --private-window
+      '';
     };
   };
 }
