@@ -18,6 +18,7 @@ in
       # Currently the kernel is broken on master
       # etc.overlay.enable = true;
       switch.enable = false;
+      # xdg-utils depend on Perl
       # forbiddenDependenciesRegexes = [ "perl" ];
       tools.nixos-generate-config.enable = lib.mkDefault false;
     };
@@ -55,7 +56,8 @@ in
 
     security = {
       sudo.enable = lib.mkDefault false;
-      enableWrappers = lib.mkDefault false;
+      # Cage seems to use PAM (and thus suid binaries)
+      # enableWrappers = lib.mkDefault false;
     };
 
     xdg = {
