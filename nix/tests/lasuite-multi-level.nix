@@ -12,6 +12,8 @@
         multilevel = {
           image.enable = true;
           host.enable = true;
+          guest.enable = true;
+          minimization.enable = true;
         };
 
         virtualisation = {
@@ -19,6 +21,9 @@
           directBoot.enable = false;
           mountHostNixStore = false;
           useEFIBoot = true;
+
+          # Need to switch to a different GPU driver than the default one (-vga std) so that Cage can launch:
+          qemu.options = [ "-vga none -device virtio-gpu-pci" ];
         };
       };
   };
@@ -61,6 +66,9 @@
 
         backing_device = machine.succeed("df --output=source /nix/store | tail -n1").strip()
         assert "/dev/mapper/usr" == backing_device,"unexpected backing device: {backing_device}"
+
+      with subtest("Wait for firefox to start"):
+        machine.wait_until_succeeds("pgrep firefox")
     '';
 
 }

@@ -12,6 +12,7 @@ let
           ../modules/host.nix
           ../modules/guest.nix
           ../modules/image.nix
+          ../modules/minimization.nix
         ];
       };
     };
