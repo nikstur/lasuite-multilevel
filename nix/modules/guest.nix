@@ -31,10 +31,6 @@ in
         DisableSetDesktopBackground = true;
         DisableDeveloperTools = true;
         BlockAboutConfig = true;
-        Homepage = {
-          URL = "https://github.com/nikstur/lasuite-multilevel";
-          Locked = true;
-        };
       };
     };
 
@@ -44,7 +40,8 @@ in
       program = ''
         ${config.programs.firefox.package}/bin/firefox \
           --kiosk \
-          --private-window
+          --private-window \
+          lasuite.numerique.gouv.fr
       '';
     };
   };
