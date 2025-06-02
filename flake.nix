@@ -59,6 +59,34 @@
               }
             );
 
+            packages = {
+              start-ch = pkgs.writeScriptBin "start-ch" ''
+                exec ${pkgs.cloud-hypervisor}/bin/cloud-hypervisor \
+                  --kernel "$TOPLEVEL/kernel" \
+                  --initramfs "$TOPLEVEL/initrd" \
+                  --cmdline "init=$TOPLEVEL/init $(cat $TOPLEVEL/kernel-params)" \
+                  --disk "path=$FINAL_IMAGE,readonly=true" \
+                  --cpus "boot=2" \
+                  --memory "size=2048M"
+              '';
+              start-qemu = pkgs.writeScriptBin "start-qemu" ''
+                exec ${pkgs.qemu}/bin/qemu-system-x86_64 \
+                  -machine accel=kvm:tcg \
+                  -cpu max \
+                  -name machine \
+                  -m 2048 \
+                  -smp 2 \
+                  -device virtio-rng-pci \
+                  -kernel "$TOPLEVEL/kernel" \
+                  -initrd "$TOPLEVEL/initrd" \
+                  -append "init=$TOPLEVEL/init $(cat $TOPLEVEL/kernel-params)" \
+                  -drive "file=$FINAL_IMAGE,id=drive1,readonly=on" \
+                  -device virtio-blk-pci,bootindex=1,drive=drive1,readonly=on \
+                  -vga none \
+                  -device virtio-gpu-pci
+              '';
+            };
+
             pre-commit = {
               check.enable = true;
 
