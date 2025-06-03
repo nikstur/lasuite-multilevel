@@ -13,11 +13,11 @@ let
           ../modules/guest.nix
           ../modules/image.nix
           ../modules/minimization.nix
+          ../modules/vpn.nix
         ];
       };
     };
 in
-
 {
   lasuite-multi-level = runTest ./lasuite-multi-level.nix;
 }
